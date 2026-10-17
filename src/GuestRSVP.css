@@ -1,0 +1,702 @@
+
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap");
+
+:root {
+  font-family: "DM Sans", sans-serif;
+  color: #473039;
+  background: #fff8f5;
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.guest-page {
+  min-height: 100vh;
+  padding: 0 20px 24px;
+  background:
+    radial-gradient(ellipse at 0% 20%, #f8e5e7 0, transparent 35%),
+    radial-gradient(ellipse at 100% 75%, #f5e3d7 0, transparent 32%),
+    #fff8f5;
+}
+
+.guest-topbar {
+  max-width: 1100px;
+  min-height: 76px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #5d3447;
+  font-size: 20px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: #783d59;
+  color: white;
+  font-family: "Playfair Display", serif;
+}
+
+.invitation-label,
+.eyebrow {
+  color: #a26b7d;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.4px;
+}
+
+.invitation-card {
+  position: relative;
+  max-width: 760px;
+  margin: 12px auto 0;
+  overflow: hidden;
+  border: 1px solid #ead3d2;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 22px 70px rgba(104, 56, 70, 0.09);
+}
+
+.invitation-card::before {
+  position: absolute;
+  inset: 10px;
+  border: 1px solid #eedcda;
+  border-radius: 4px;
+  content: "";
+  pointer-events: none;
+}
+
+.floral {
+  position: relative;
+  z-index: 1;
+  color: #bb8794;
+  text-align: center;
+  letter-spacing: 14px;
+  font-size: 28px;
+}
+
+.floral-top {
+  padding-top: 38px;
+}
+
+.floral-bottom {
+  padding: 0 0 32px;
+}
+
+.invitation-content {
+  position: relative;
+  z-index: 1;
+  max-width: 500px;
+  margin: auto;
+  padding: 18px 28px 35px;
+  text-align: center;
+}
+
+.invitation-content h1,
+.couple-names,
+.form-heading h2,
+.success-panel h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 500;
+}
+
+.invitation-content h1 {
+  margin: 17px 0 10px;
+  color: #783d59;
+  font-size: clamp(38px, 7vw, 54px);
+}
+
+.intro {
+  max-width: 360px;
+  margin: 0 auto;
+  color: #8c747b;
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 23px 0;
+}
+
+.ornament > span:not(.ornament-heart) {
+  width: 54px;
+  height: 1px;
+  background: #d8afb9;
+}
+
+.ornament-heart {
+  color: #bc8295;
+  font-size: 15px;
+}
+
+.celebration-label {
+  margin: 0 0 8px;
+  color: #a26b7d;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.couple-names {
+  margin: 0;
+  color: #6d3d51;
+  font-size: clamp(34px, 7vw, 49px);
+  line-height: 1.3;
+}
+
+.wedding-date {
+  margin: 18px 0 5px;
+  color: #583b46;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.wedding-time {
+  margin: 0;
+  color: #947780;
+  font-size: 13px;
+}
+
+.venue-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 25px 0;
+  padding: 18px;
+  border: 1px solid #f0dfe0;
+  border-radius: 8px;
+  background: #fff9f8;
+  text-align: left;
+}
+
+.venue-icon {
+  color: #a45f78;
+  font-size: 29px;
+}
+
+.venue-card h3 {
+  margin: 0 0 5px;
+  color: #63404d;
+  font-size: 13px;
+}
+
+.venue-card p {
+  margin: 0;
+  color: #987f87;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.invitation-divider {
+  margin: 25px 0;
+  color: #c08a9b;
+  font-size: 18px;
+}
+
+.rsvp-form {
+  text-align: left;
+}
+
+.form-heading {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.form-heading h2,
+.success-panel h2 {
+  margin: 9px 0;
+  color: #6d3d51;
+  font-size: 30px;
+}
+
+.form-heading p,
+.success-panel p {
+  margin: 0;
+  color: #957e85;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.rsvp-form > label {
+  display: block;
+  margin: 18px 0 8px;
+  color: #634552;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.rsvp-form input,
+.rsvp-form select,
+.rsvp-form textarea {
+  display: block;
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #eadbdd;
+  border-radius: 7px;
+  outline: none;
+  background: #fffdfc;
+  color: #49323b;
+  font-size: 13px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.rsvp-form input:focus,
+.rsvp-form select:focus,
+.rsvp-form textarea:focus {
+  border-color: #ae7589;
+  box-shadow: 0 0 0 3px rgba(174, 117, 137, 0.12);
+}
+
+.rsvp-form textarea {
+  resize: vertical;
+}
+
+.attendance-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.attendance-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 13px 10px;
+  border: 1px solid #eadbdd;
+  border-radius: 7px;
+  background: white;
+  color: #654755;
+  text-align: left;
+}
+
+.attendance-option.selected {
+  border-color: #a96881;
+  background: #fcf1f4;
+  box-shadow: 0 0 0 1px #a96881 inset;
+}
+
+.option-icon {
+  color: #a96881;
+  font-size: 22px;
+}
+
+.attendance-option strong,
+.attendance-option small {
+  display: block;
+}
+
+.attendance-option strong {
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.attendance-option small {
+  margin-top: 3px;
+  color: #a08a91;
+  font-size: 10px;
+}
+
+.submit-rsvp {
+  width: 100%;
+  margin-top: 23px;
+  padding: 15px;
+  border: 0;
+  border-radius: 7px;
+  background: #783d59;
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 7px 18px rgba(120, 61, 89, 0.16);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.submit-rsvp:hover {
+  transform: translateY(-1px);
+  background: #65314a;
+}
+
+.submit-rsvp span {
+  margin-left: 8px;
+}
+
+.privacy-note {
+  margin: 13px 0 0;
+  color: #a08a91;
+  font-size: 10px;
+  text-align: center;
+}
+
+.success-panel {
+  padding: 20px 8px 30px;
+  text-align: center;
+}
+
+.success-icon {
+  display: grid;
+  place-items: center;
+  width: 55px;
+  height: 55px;
+  margin: auto;
+  border-radius: 50%;
+  background: #f4e4e9;
+  color: #783d59;
+  font-size: 26px;
+}
+
+.success-panel h2 {
+  margin-top: 18px;
+  font-size: 27px;
+}
+
+.edit-response {
+  margin-top: 20px;
+  padding: 11px 18px;
+  border: 1px solid #d9b8c3;
+  border-radius: 6px;
+  background: white;
+  color: #783d59;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.closing-note {
+  margin: 28px 0 0;
+  color: #a78790;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 13px;
+  font-style: italic;
+}
+
+.guest-footer {
+  padding-top: 22px;
+  color: #9b818a;
+  font-size: 11px;
+  text-align: center;
+}
+
+.guest-footer span {
+  color: #b87990;
+}
+
+@media (max-width: 520px) {
+  .guest-page {
+    padding: 0 10px 20px;
+  }
+
+  .guest-topbar {
+    min-height: 65px;
+  }
+
+  .brand {
+    font-size: 17px;
+  }
+
+  .invitation-label {
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+
+  .invitation-content {
+    padding: 15px 20px 28px;
+  }
+
+  .floral-top {
+    padding-top: 27px;
+  }
+
+  .attendance-options {
+    grid-template-columns: 1fr;
+  }
+
+  .venue-card {
+    padding: 14px 10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .couple-photo-card,
+  .directions-link,
+  .attendance-option,
+  .submit-rsvp,
+  .edit-response {
+    transition: none;
+  }
+
+  .couple-photo-card:hover,
+  .directions-link:hover,
+  .submit-rsvp:hover {
+    transform: none;
+  }
+}
+
+/* ==========================================
+   ShaadiSync — Refined Invitation Layout
+   Existing dusty pink • plum • ivory palette
+========================================== */
+
+.invitation-redesigned {
+  width: min(100% - 32px, 1000px);
+  max-width: 1000px;
+  margin: 24px auto;
+  overflow: hidden;
+}
+
+.invitation-redesigned .invitation-content {
+  width: 100%;
+  max-width: 850px;
+  margin-inline: auto;
+  padding: 30px 36px;
+  box-sizing: border-box;
+}
+
+/* A compact, centered invitation heading */
+.invitation-hero {
+  text-align: center;
+}
+
+.invitation-hero .intro {
+  max-width: 460px;
+  margin: 12px auto;
+}
+
+.invitation-hero .couple-names {
+  margin: 10px 0;
+}
+
+.invitation-hero .wedding-date {
+  margin: 12px 0 4px;
+}
+
+.invitation-hero .wedding-time {
+  margin: 0;
+}
+
+/* Balanced, centered couple photos */
+.invitation-redesigned .couple-gallery {
+  position: relative;
+  width: min(100%, 570px);
+  margin: 26px auto 32px;
+  padding: 0 24px;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 22px;
+}
+
+.invitation-redesigned .couple-photo-card {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  border-radius: 100px 100px 12px 12px;
+}
+
+.invitation-redesigned .couple-photo-card img {
+  width: 100%;
+  height: 235px;
+  object-fit: cover;
+  object-position: center 35%;
+}
+
+.invitation-redesigned .gallery-heart {
+  position: absolute;
+  z-index: 2;
+  top: 43%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  width: 35px;
+  height: 35px;
+  border: 3px solid #fff8f7;
+  border-radius: 50%;
+  background: #fff1f5;
+  color: #b76f8b;
+  box-shadow: 0 3px 12px rgba(104, 56, 70, 0.12);
+}
+
+/* Compact venue and schedule arrangement */
+.invitation-redesigned .event-overview-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  align-items: start;
+  gap: 18px;
+  margin: 28px 0;
+}
+
+.invitation-redesigned .venue-card {
+  display: flex;
+  min-width: 0;
+  box-sizing: border-box;
+  border-radius: 12px;
+}
+
+.invitation-redesigned .venue-details {
+  overflow-wrap: anywhere;
+}
+
+.invitation-redesigned .wedding-details {
+  min-width: 0;
+  margin: 0;
+  padding: 22px 20px;
+  box-sizing: border-box;
+}
+
+.invitation-redesigned .details-heading {
+  margin-bottom: 12px;
+}
+
+.invitation-redesigned .details-heading h2 {
+  margin: 7px 0;
+  font-size: 24px;
+}
+
+.invitation-redesigned .schedule-item {
+  gap: 11px;
+  padding: 12px 0;
+}
+
+.invitation-redesigned .schedule-marker {
+  width: 32px;
+  height: 32px;
+}
+
+.invitation-redesigned .schedule-copy h3 {
+  margin: 3px 0;
+  font-size: 15px;
+}
+
+.invitation-redesigned .dress-code-card {
+  margin-top: 14px;
+  padding: 12px;
+}
+
+/* Keep the RSVP easy to read */
+.invitation-redesigned .invitation-divider {
+  margin: 24px auto;
+}
+
+.invitation-redesigned .rsvp-form {
+  width: min(100%, 560px);
+  margin-inline: auto;
+}
+
+.invitation-redesigned .form-heading {
+  margin-bottom: 22px;
+  text-align: center;
+}
+
+.invitation-redesigned .closing-note {
+  margin-top: 25px;
+  text-align: center;
+}
+
+/* Tablet and mobile layout */
+@media (max-width: 700px) {
+  .invitation-redesigned {
+    width: calc(100% - 20px);
+    margin: 12px auto;
+  }
+
+  .invitation-redesigned .invitation-content {
+    padding: 22px 16px;
+  }
+
+  .invitation-redesigned .event-overview-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    margin: 22px 0;
+  }
+
+  .invitation-redesigned .couple-gallery {
+    width: min(100%, 440px);
+    gap: 16px;
+    padding: 0 12px;
+    margin: 22px auto 26px;
+  }
+
+  .invitation-redesigned .couple-photo-card img {
+    height: 200px;
+  }
+
+  .invitation-redesigned .gallery-heart {
+    width: 31px;
+    height: 31px;
+  }
+
+  .invitation-redesigned .wedding-details {
+    padding: 20px 16px;
+  }
+}
+
+@media (max-width: 380px) {
+  .invitation-redesigned .invitation-content {
+    padding: 20px 11px;
+  }
+
+  .invitation-redesigned .couple-gallery {
+    gap: 12px;
+    padding: 0 8px;
+  }
+
+  .invitation-redesigned .couple-photo-card {
+    border-radius: 65px 65px 10px 10px;
+  }
+
+  .invitation-redesigned .couple-photo-card img {
+    height: 165px;
+  }
+
+  .invitation-redesigned .couple-photo-caption h3 {
+    font-size: 17px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .invitation-redesigned .couple-photo-card,
+  .invitation-redesigned .directions-link,
+  .invitation-redesigned .attendance-option,
+  .invitation-redesigned .submit-rsvp {
+    transition: none;
+  }
+
+  .invitation-redesigned .couple-photo-card:hover,
+  .invitation-redesigned .directions-link:hover {
+    transform: none;
+  }
+}
