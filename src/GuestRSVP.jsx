@@ -1,5 +1,10 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { supabase } from "./supabase";
+
+const WEDDING_ID = "bb7472aa-dc1b-4b49-b4ec-576c7df99de2";
+
+const DEFAULT_EVENTS = ["Wedding", "Reception", "Haldi", "Mehendi"];
 
 const wedding = {
   couple: "Aarav & Ananya",
@@ -22,14 +27,9 @@ const schedule = [
   { time: "12:30 PM", title: "Celebration & lunch", detail: "Food, family and happy moments" },
 ];
 
-const weddingEvents = ["Wedding", "Reception", "Haldi", "Mehendi"];
-
-const emptyAnswers = {
-  Wedding: "",
-  Reception: "",
-  Haldi: "",
-  Mehendi: "",
-};
+function makeEmptyAnswers(events) {
+  return Object.fromEntries(events.map((event) => [event, ""]));
+}
 
 function normalizeName(name) {
   return name.trim().toLowerCase();
@@ -57,16 +57,16 @@ function readAdminGuests() {
   }
 }
 
-function getAnswersForGuest(responses, guestName) {
+function getAnswersForGuest(responses, guestName, events) {
   const matching = responses.filter(
     (response) =>
       normalizeName(response.name || "") === normalizeName(guestName)
   );
 
-  const answers = { ...emptyAnswers };
+  const answers = makeEmptyAnswers(events);
 
   matching.forEach((response) => {
-    weddingEvents.forEach((eventName) => {
+    events.forEach((eventName) => {
       const savedEvent = response.eventRsvps?.[eventName];
 
       if (savedEvent && typeof savedEvent === "object") {
@@ -102,19 +102,70 @@ function getAnswersForGuest(responses, guestName) {
 }
 
 export default function GuestRSVP() {
+  const [weddingEvents, setWeddingEvents] = useState(DEFAULT_EVENTS);
+  const [eventsLoading, setEventsLoading] = useState(true);
+  const [eventsError, setEventsError] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [answers, setAnswers] = useState({ ...emptyAnswers });
+  const [answers, setAnswers] = useState(() =>
+    makeEmptyAnswers(DEFAULT_EVENTS)
+  );
   const [guestCount, setGuestCount] = useState("1");
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadEvents() {
+      try {
+        const { data, error } = await supabase
+          .from("events")
+          .select("name")
+          .eq("wedding_id", WEDDING_ID)
+          .order("created_at", { ascending: true });
+
+        if (error) throw error;
+
+        if (active && data?.length) {
+          const names = [
+            ...new Set(data.map((event) => event.name).filter(Boolean)),
+          ];
+
+          setWeddingEvents(names);
+          setAnswers((current) => ({
+            ...makeEmptyAnswers(names),
+            ...current,
+          }));
+          setEventsError("");
+        } else if (active && !data?.length) {
+          setEventsError("No events have been added yet.");
+        }
+      } catch (error) {
+        console.error("Unable to load events:", error);
+        if (active) {
+          setEventsError(
+            "Unable to load the latest event list. Showing the existing events."
+          );
+        }
+      } finally {
+        if (active) setEventsLoading(false);
+      }
+    }
+
+    loadEvents();
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   function loadGuestResponse(guestName) {
     setSubmitted(false);
 
     if (!guestName.trim()) {
       setPhone("");
-      setAnswers({ ...emptyAnswers });
+      setAnswers(makeEmptyAnswers(weddingEvents));
       setGuestCount("1");
       setMessage("");
       return;
@@ -131,13 +182,17 @@ export default function GuestRSVP() {
         normalizeName(guest.name || "") === normalizeName(guestName)
     );
 
-    setAnswers(getAnswersForGuest(responses, guestName));
+    setAnswers(getAnswersForGuest(responses, guestName, weddingEvents));
 
     const latest = matching[matching.length - 1];
 
     setPhone(latest?.phone || adminGuest?.phone || "");
     setGuestCount(
-      String(latest?.guestCount > 0 ? latest.guestCount : adminGuest?.familySize || 1)
+      String(
+        latest?.guestCount > 0
+          ? latest.guestCount
+          : adminGuest?.familySize || 1
+      )
     );
     setMessage(latest?.message || adminGuest?.message || "");
   }
@@ -192,8 +247,6 @@ export default function GuestRSVP() {
           normalizeName(guest.name || "") === normalizeName(guestName)
       );
 
-      // Store each event as a status string so the existing
-      // admin dashboard can read it using getEventStatus().
       const eventRsvps = {};
 
       weddingEvents.forEach((eventName) => {
@@ -220,7 +273,7 @@ export default function GuestRSVP() {
         response,
       ];
 
-      const weddingStatus = eventRsvps.Wedding;
+      const weddingStatus = eventRsvps.Wedding || "Pending";
 
       let updatedAdminGuests;
 
@@ -260,7 +313,6 @@ export default function GuestRSVP() {
         ];
       }
 
-      // Save both records before showing success.
       localStorage.setItem(
         "shaadysync_guest_rsvps",
         JSON.stringify(updatedResponses)
@@ -384,6 +436,12 @@ export default function GuestRSVP() {
                 <p>Your presence would mean the world to us.</p>
               </div>
 
+              {eventsError && (
+                <p className="privacy-note" role="status">
+                  {eventsError}
+                </p>
+              )}
+
               <label htmlFor="guest-name">Your full name *</label>
               <input
                 id="guest-name"
@@ -414,6 +472,7 @@ export default function GuestRSVP() {
                 required
                 maxLength={15}
               />
+
               <p className="privacy-note">
                 Your phone number will be included in the guest list for the event organizer.
               </p>
